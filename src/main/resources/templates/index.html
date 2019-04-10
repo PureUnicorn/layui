@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html style="background-color: #eeeeee;" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"/>
+    <script src="/layui/layui.js"></script>
+</head>
+<body>
+<div class="myheader">
+    <H1>Login Page</H1>
+</div>
+<div class="login-box">
+    <form id="mainform" class="layadmin-user-login-box layadmin-user-login-body layui-form layui-form-pane"
+        action="/login" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" lay-verify="required" autocomplete="on" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码：</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <button class="layui-btn" lay-submit lay-filter="login">登陆</button>
+        </div>
+    </form>
+</div>
+</body>
+<style type="text/css">
+    .login-box{
+        width: 30%;
+        margin-left: 40%;
+        margin-top: 5%;
+    }
+    .myheader{
+        width:30%;
+        margin-left:45%;
+        margin-top: 10%;
+    }
+</style>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.on('submit(login)', function (data) {
+            //提交
+            $("#mainform").ajaxSubmit({
+                type:"post",  //提交方式
+                // dataType:"json", //数据类型 注意这里！！！！！
+                success: function (data) {
+                    // layer.alert(data)
+                    layer.alert(data);
+                    window.location.replace('/');
+                    layer.alert("success");
+                },
+                error: function (data) {
+                    // layer.alert(data)
+                    layer.alert(data.responseJSON.msg);
+                }
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+    });
+</script>
+
+</html>
